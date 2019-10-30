@@ -56,7 +56,8 @@ function spectrum(μ::AbstractMatrix; tstep=0.5, maxfreq=4000)
     lh = Int(floor(l/2))
     acor = autocorrelation(μ)
     s = abs.(fft(acor))[1:lh]
-    w = [ n/(l*0.5E-15*299792458E2) for n in 1:lh ]
+    # freq = n/NΔ and wavenumber = freq/100c
+    w = [ n/(l*tstep*1E-15*299792458E2) for n in 1:lh ]
     i = w .<= maxfreq
     return Dict("absorption"=>s[i], "wavenumber"=>w[i])
 end
