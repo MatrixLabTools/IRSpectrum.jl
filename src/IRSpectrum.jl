@@ -2,11 +2,13 @@ module IRSpectrum
 
 using FFTW
 
-export read_cp2k_dipoles, autocorrelation, spectrum
+export autocorrelation,
+       read_cp2k_dipoles,
+       spectrum
 
 
 """
-read_cp2k_dipoles(fname)
+read_cp2k_dipoles(fname) -> Matrix{Float64}
 
 Read dipole trajectory file created by CP2K and return dipolemoments as
 a two dimensional array.
@@ -32,7 +34,7 @@ end
 
 
 """
-autocorrelation(μ::AbstractMatrix)
+autocorrelation(μ::AbstractMatrix) -> Vector
 
 Calculates autocorrelation function using [Wiener-Khinchin Theorem](http://mathworld.wolfram.com/Wiener-KhinchinTheorem.html).
 """
@@ -43,13 +45,20 @@ end
 
 
 """
-spectrum(μ::AbstractMatrix; tstep=0.5, maxfreq=4000)
+spectrum(μ::AbstractMatrix; tstep=0.5, maxfreq=4000) -> Dict
 
-Calculates spectrum from dipolemoment trajectory.
-`tstep` is timestep for trajectory in fempto seconds and
-`maxfreq` is maximum frequency in wavenumbers for resulting spectrum.
+Calculates spectrum from dipolemoment trajectory. Calculates autocorrelation function and
+its Fourier transform.
 
-Return `Dict` with field `"absorption"` and `"wavenumber"`.
+# Arguments
+- `μ::AbstractMatrix` :  data where autocorrelation funtion is calculated for each row
+
+# Keywords
+- `tstep` : timestep for trajectory in fempto seconds
+- `maxfreq` : maximum frequency in wavenumbers for resulting spectrum
+
+# Returns
+- `Dict` : with fields `"absorption"` and `"wavenumber"`.
 """
 function spectrum(μ::AbstractMatrix; tstep=0.5, maxfreq=4000)
     l = size(μ)[2]
@@ -64,13 +73,13 @@ end
 
 
 """
-spectrum(fname::AbstractString; tstep=0.5, maxfreq=4000)
+spectrum(fname::AbstractString; tstep=0.5, maxfreq=4000) -> Dict
 
-Read dipolemoments from file `fname` and calculate spectrum.
+Read dipolemoments from CP2K dipole file `fname` and calculate spectrum.
 """
 function spectrum(fname::AbstractString; tstep=0.5, maxfreq=4000)
     μ = read_cp2k_dipoles(fname)
-    return spectrum(μ, tstep=tstep, maxfreq=maxfreq)
+    return spectrum(μ; tstep=tstep, maxfreq=maxfreq)
 end
 
 end # module
