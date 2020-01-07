@@ -14,6 +14,13 @@ There are also special readers for CP2K dipole output. You can either read
 dipoles to a matrix and then calculate spectrum or just call `spectrum` with
 file name to get IR-spectrum right away.
 
+### Installation
+
+```julia
+pkg> registry add https://github.com/MatrixLabTools/PackageRegistry
+pkg> add IRSpectrum
+```
+
 ### To calculate IR-spectrum use
 
 ```
