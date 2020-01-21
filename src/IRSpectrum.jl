@@ -13,11 +13,12 @@ read_cp2k_dipoles(fname) -> Matrix{Float64}
 Read dipole trajectory file created by CP2K and return dipolemoments as
 a two dimensional array.
 """
-function read_cp2k_dipoles(fname)
+function read_cp2k_dipoles(fname::AbstractString)
     out = Float64[]
     open(fname,"r") do file
+        re = r"X=\ +(?<X>-?\d+.?\d+)\ +Y=\ +(?<Y>-?\d+.?\d+)\ +Z=\ +(?<Z>-?\d+.?\d+)"
         for line in eachline(file)
-            m = match(r"X=\ +(?<X>-?\d+.?\d+)\ +Y=\ +(?<Y>-?\d+.?\d+)\ +Z=\ +(?<Z>-?\d+.?\d+)", line)
+            m = match(re, line)
             if m !== nothing
                 push!(out,parse(Float64,m[:X]))
                 push!(out,parse(Float64,m[:Y]))
