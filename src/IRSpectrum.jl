@@ -16,7 +16,7 @@ a two dimensional array.
 function read_cp2k_dipoles(fname::AbstractString)
     out = Float64[]
     open(fname,"r") do file
-        re = r"X=\ +(?<X>-?\d+.?\d+)\ +Y=\ +(?<Y>-?\d+.?\d+)\ +Z=\ +(?<Z>-?\d+.?\d+)"
+        re = r"^\s*X=\s+(?<X>-?\d+.?\d+[Ee]?[+\-]?\d+).*\s+Y=\s+(?<Y>-?\d+.?\d+[Ee]?[+\-]?\d+).*\s+Z=\s+(?<Z>-?\d+.?\d+[Ee]?[+\-]?\d+)"
         for line in eachline(file)
             m = match(re, line)
             if m !== nothing
