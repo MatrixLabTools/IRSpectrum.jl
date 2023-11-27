@@ -34,5 +34,5 @@ spectrum(path_to_cp2k_dipole_traj_file; tstep=0.5, maxfreq=4000)
 ```
 
 
-[CI-img]: https://github.com/MatrixLabTools/IRSpectrum.jl/workflows/CI/badge.svg?branch=master
+[CI-img]: https://github.com/MatrixLabTools/IRSpectrum.jl/workflows/CI/badge.svg
 [CI-url]: https://github.com/MatrixLabTools/IRSpectrum.jl/actions?query=branch%3Amaster
