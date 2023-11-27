@@ -1,5 +1,7 @@
 # IRSpectrum.jl
 
+[![][CI-img]][CI-url]
+
 This package is meant to calculate Vibration spectrum from molecular dynamics
 data. Mainly by using dipolemoment trajectory to calculate IR-spectrum or
 velocity trajectory to calculate power spectrum.
@@ -30,3 +32,7 @@ using IRSpectrum
 # maxfreq is maximum frequency in wavenumbers
 spectrum(path_to_cp2k_dipole_traj_file; tstep=0.5, maxfreq=4000)
 ```
+
+
+[CI-img]: https://github.com/MatrixLabTools/IRSpectrum.jl/workflows/CI/badge.svg
+[CI-url]: https://github.com/MatrixLabTools/IRSpectrum.jl/actions?query=workflow%3ACI
