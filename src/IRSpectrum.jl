@@ -40,7 +40,7 @@ autocorrelation(μ::AbstractMatrix) -> Vector
 Calculates autocorrelation function using [Wiener-Khinchin Theorem](http://mathworld.wolfram.com/Wiener-KhinchinTheorem.html).
 """
 function autocorrelation(μ::AbstractMatrix)
-    tmp = [ fft(abs2.(ifft(r))) for r in eachrow(μ)]
+    tmp = [ ifft(abs2.(fft(r))) for r in eachrow(μ)]
     return real.(reduce(+,tmp))
 end
 
